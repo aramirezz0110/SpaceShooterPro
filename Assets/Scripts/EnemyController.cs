@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D), typeof(Animator))]
 public class EnemyController : MonoBehaviour
 {
     [Header("Enemy Parameters")]
     [SerializeField] private float speed=4.0f;
     [SerializeField] private float bottomLimit = 0.0f;
-
+    [SerializeField] private Animator animator;
     private PlayerController playerController;
-    void Start()
+    private void Start()
     {
-        
+        animator = GetComponent<Animator>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
-
-    
     void Update()
     {
         Movement();
@@ -31,24 +31,29 @@ public class EnemyController : MonoBehaviour
     }
     #region Unity Callbacks    
     private void OnTriggerEnter2D(Collider2D other)
-    {
-        //if other is player
+    {        
         if (other.gameObject.tag == "Player")
-        {
-            playerController = other.gameObject.GetComponent<PlayerController>();
+        {            
             if (playerController != null)
             {
                 print("Damage to player!");
-                playerController.Damage();
+                playerController.Damage();                 
             }
-            Destroy(gameObject);
-        }
-        //if other is laser 
+            ShowExplosionAnim();            
+            Destroy(gameObject,2.8f);
+        }        
         if (other.gameObject.tag == "Laser")
         {
-            Destroy(other.gameObject);
-            Destroy(gameObject);
+            playerController.AddScore(10);
+            Destroy(other.gameObject);            
+            ShowExplosionAnim();
+            Destroy(gameObject,2.8f);            
         }
+    }
+    private void ShowExplosionAnim()
+    {
+        speed = 0;
+        animator.SetTrigger("OnEnemyDeath");
     }
     #endregion
 }

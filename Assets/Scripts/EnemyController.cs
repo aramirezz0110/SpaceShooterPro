@@ -35,8 +35,7 @@ public class EnemyController : MonoBehaviour
         if (other.gameObject.tag == GameTags.Player)
         {            
             if (playerController != null)
-            {
-                print("Damage to player!");
+            {                
                 playerController.Damage();                 
             }
             ShowExplosionAnim();            

@@ -5,5 +5,10 @@ using UnityEngine;
 public class Explosion : MonoBehaviour
 {
     [SerializeField] private float selfDestructionTime = 2f;
-    private void Start() => Destroy(gameObject, selfDestructionTime);
+    
+    private void Start()
+    {
+        AudioManager.Instance.PlayExplosionSound();
+        Destroy(gameObject, selfDestructionTime);
+    }
 }

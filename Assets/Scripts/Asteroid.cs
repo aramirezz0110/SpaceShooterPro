@@ -18,10 +18,14 @@ public class Asteroid : MonoBehaviour
         if(collision.gameObject.tag == GameTags.Laser)
         {
             SpawnManager.Instance.StartSpawninig();
-            Instantiate(explosionPrefab, transform.position, transform.rotation);
+            Instantiate(explosionPrefab, transform.position, transform.rotation);            
             Destroy(collision.gameObject);
-            gameObject.SetActive(false);
+            gameObject.SetActive(false);            
             Destroy(gameObject, selfDestructionTime);
         }
+    }
+    private void OnDestroy()
+    {
+        AudioManager.Instance.PlayExplosionSound();
     }
 }

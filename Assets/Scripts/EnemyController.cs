@@ -53,6 +53,7 @@ public class EnemyController : MonoBehaviour
     {
         speed = 0;
         animator.SetTrigger("OnEnemyDeath");
-    }
+        AudioManager.Instance.PlayExplosionSound();
+    }   
     #endregion
 }

@@ -95,7 +95,8 @@ public class PlayerController : MonoBehaviour
             else
             {
                 Instantiate(laserPrefab, bulletOrigin.position, Quaternion.identity);
-            }            
+            }
+            AudioManager.Instance.PlayLaserSound();
         }
     }
     private IEnumerator TripleShotPowerDownRoutine()

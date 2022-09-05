@@ -55,6 +55,7 @@ public class PowerUp : MonoBehaviour
                     default: break;
                 }
             }
+            AudioManager.Instance.PlayPowerUpSound();
             Destroy(this.gameObject);
         }
     }

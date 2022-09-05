@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,10 @@ public class PlayerController : MonoBehaviour
     public GameObject laserPrefab;
     public GameObject tripleShootPrefab;
     public Transform bulletOrigin;
+
+    [Header("Engines")]
+    [SerializeField] private GameObject rightEngine;
+    [SerializeField] private GameObject leftEngine;
 
     [Header("Scripts References")]    
     public UIManager uiManager;
@@ -46,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
         uiManager.UpdateLives(lives);
 
-
+        ShowEngineDamage();
     }    
     void Update()
     {
@@ -130,7 +135,32 @@ public class PlayerController : MonoBehaviour
             print("Game Over!");
             Destroy(gameObject);            
         }
+        ShowEngineDamage();
     }
+
+    private void ShowEngineDamage()
+    {
+        switch (lives) 
+        {            
+            case 1: 
+                {
+                    leftEngine.SetActive(true);
+                    break; 
+                }
+            case 2: 
+                {
+                    rightEngine.SetActive(true);
+                    break;
+                }
+            case 3: 
+                {
+                    rightEngine.SetActive(false);
+                    leftEngine.SetActive(false);
+                    break; 
+                }            
+        }
+    }
+
     public void TripleShotActive()
     {
         isTripleShotActive = true;

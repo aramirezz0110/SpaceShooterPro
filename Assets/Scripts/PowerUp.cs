@@ -30,7 +30,7 @@ public class PowerUp : MonoBehaviour
     #endregion
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == GameTags.Player)
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             if (playerController != null)

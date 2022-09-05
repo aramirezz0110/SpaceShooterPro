@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public static SpawnManager Instance;
     [Header("Enemy References")]
     [SerializeField] private GameObject enemyPrefab;    
     [SerializeField] private Transform enemyContainer;
@@ -15,7 +16,22 @@ public class SpawnManager : MonoBehaviour
 
     private bool stopSpawning;
 
-    void Start()
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }   
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    private void Start()
+    {
+        
+    }
+    public void StartSpawninig()
     {
         StartCoroutine(SpawnEnemyRoutine(spawningWaitTime));
         StartCoroutine(SpawnPowerUpRoutine());

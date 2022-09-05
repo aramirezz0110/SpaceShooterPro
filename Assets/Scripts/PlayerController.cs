@@ -21,15 +21,16 @@ public class PlayerController : MonoBehaviour
     public GameObject tripleShootPrefab;
     public Transform bulletOrigin;
 
-    [Header("Scripts References")]
-    [SerializeField] private SpawnManager spawnManager;
+    [Header("Scripts References")]    
     public UIManager uiManager;
 
     private float horizontalInput;
     private float verticalInput;
     private Vector3 direction;
 
-    
+
+    private const string Horizontal = "Horizontal";
+    private const string Vertical = "Vertical";
 
     private bool isTripleShotActive=false;
     private bool isSpeedBoostActive = false;
@@ -41,8 +42,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         shieldVisualizer.SetActive(false);
-        transform.position = new Vector3(0, 0, 0);
-        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        transform.position = new Vector3(0, 0, 0);       
 
         uiManager.UpdateLives(lives);
 
@@ -59,8 +59,8 @@ public class PlayerController : MonoBehaviour
     #region Private Methods
     private void CalculateMovement()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxis(Horizontal);
+        verticalInput = Input.GetAxis(Vertical);
 
         direction = new Vector3(horizontalInput, verticalInput, 0);
 
@@ -123,11 +123,9 @@ public class PlayerController : MonoBehaviour
         lives--;
         uiManager.UpdateLives(lives);
         if (lives == 0)
-        {
-            if (spawnManager != null)
-            {
-                spawnManager.OnPlayerDeath();
-            }
+        {            
+            SpawnManager.Instance.OnPlayerDeath();
+
             GameManager.Instance.GameOver();
             print("Game Over!");
             Destroy(gameObject);            

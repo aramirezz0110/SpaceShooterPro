@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour
     #region Unity Callbacks    
     private void OnTriggerEnter2D(Collider2D other)
     {        
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == GameTags.Player)
         {            
             if (playerController != null)
             {
@@ -41,8 +41,8 @@ public class EnemyController : MonoBehaviour
             }
             ShowExplosionAnim();            
             Destroy(gameObject,2.8f);
-        }        
-        if (other.gameObject.tag == "Laser")
+        }
+        if (other.gameObject.tag == GameTags.Laser)
         {
             playerController.AddScore(10);
             Destroy(other.gameObject);            
